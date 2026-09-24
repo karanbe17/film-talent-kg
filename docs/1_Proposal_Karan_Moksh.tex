@@ -1,0 +1,78 @@
+\documentclass[sigconf]{acmart}
+
+% Remove default ACM copyright blocks to maximize space for a 1-page proposal
+\settopmatter{printacmref=false}
+\setcopyright{none}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\pagestyle{plain}
+
+% Override the default ACM dummy text with your course information
+\acmConference[CSC501]{Algorithms and Data Models}{Fall 2026}{University of Victoria}
+\acmBooktitle{CSC501: Course Project Proposal}
+\acmISBN{}
+\acmDOI{}
+
+\begin{document}
+
+\title{Screenplay-to-Screen: An Interoperable Knowledge Representation for Film Casting and Production Networks}
+
+\author{Karan Brahmbhatt}
+\affiliation{%
+  \institution{University of Victoria}
+}
+\email{karanbrahmbhatt@uvic.ca}
+
+\author{Moksh Patel}
+\affiliation{%
+  \institution{University of Victoria}
+}
+\email{mokshpatel@uvic.ca}
+
+\begin{abstract}
+The film pre-production process relies on complex, multi-relational networks to assemble cast and crew talent. Existing datasets typically represent cinematic data as flat lists, failing to capture the creative synergies, historical collaborations, and thematic compatibilities essential for optimal talent assembly. This proposal outlines a data modeling project to represent film production constraints—including screenplays, character archetypes, artistic tones, and creative crews—in a globally accessible, interoperable form. The codebase, installation instructions, and software artifacts are available under a cc-by-nc-sa-4.0 license at https://github.com/karanbe17/film-talent-kg.
+\end{abstract}
+
+\keywords{Data Modeling, Knowledge Representation, Ontology, Film Production, Talent Assembly}
+
+\maketitle
+
+\section{Introduction}
+A central challenge in film pre-production is assembling cast and crew, an intricate process governed by script requirements, archetypes, and creative compatibilities. This domain contains a rich web of information: screenplays dictate specific thematic tones, characters demand distinct performative archetypes, and creative crews rely on historical collaboration networks for artistic synergy.
+
+To systematically analyze this domain, we must represent these multi-layered relationships in a globally accessible, machine- understandable format. This project models how cinematic talent and production constraints can be structured so computational systems, autonomous agents, and large language models (LLMs) can reason over creative compatibilities. We aim to define a model capturing the semantics of these relationships, moving beyond independent records to an interoperable semantic representation capable of answering complex queries about creative alignment and production history.
+
+\section{Motivation}
+While extensive film databases like IMDb exist, they primarily serve as flat, consumer-facing digital encyclopedias rather than semantic knowledge bases \cite{hassanzadeh2009linkedmdb}. Conventional relational representations successfully capture isolated events—like an actor's film credit—but fail to explicitly represent the semantics of the relationships, such as recurring directorial styles, narrative tropes, or the collaborative synergy between a cinematographer and a composer \cite{bizer2011linked}. 
+
+This limitation creates a significant gap in automated pre-production workflows. Identifying an actor who fits a specific narrative archetype and has collaborated successfully with a chosen director currently requires laborious manual cross-referencing across heterogeneous sources. Developing an interoperable, ontology-driven representation of film casting supports greater semantic interoperability. This allows independently developed datasets to exchange information consistently, enabling comprehensive analysis of creative networks and facilitating advanced querying by LLMs for talent discovery \cite{berners2001semantic}.
+
+\subsection{Motivating Example}
+Suppose an independent studio is in pre-production for a ``neo-noir'' thriller. The lead actor unexpectedly drops out, and the studio must rapidly identify a replacement. The new actor must match the ``gritty protagonist'' archetype, fit within a specified budget tier, and have a proven track record working with the attached cinematographer. 
+
+If casting logs and film histories are stored in isolated, non-standardized schemas, connecting an archetype and a historical crew network requires manual integration. However, if these sources share a machine-readable semantic representation, a computational system could automatically traverse the graph. It could link the ``neo-noir'' tone to a pool of suitable actors, filter them by previous successful collaborations with the cinematographer, and return a ranked talent list.
+
+\section{Team Justification}
+The project team comprises Karan Brahmbhatt and Moksh Patel, students with complementary technical expertise in database architecture and semantic web technologies. Karan will serve as Conceptual Architect and Character Subsystem Lead, responsible for defining domain boundaries, formalizing the Entity-Relationship Diagram (ERD), designing the OWL/RDF ontology, and evaluating semantic expressivity. Moksh will serve as Relational Engineering and Crew Subsystem Lead, tasked with the logical translation of the ERD into a normalized relational schema, SQL constraint modeling, triple store infrastructure deployment, and SPARQL query benchmarking. 
+
+This symmetrical division of labor ensures both members contribute substantively to both the conceptual modeling and technical implementation phases. Strict individual accountability and collaborative iteration will be continuously documented via version-controlled commits and pull requests in the project's shared GitHub repository.
+
+\bibliographystyle{ACM-Reference-Format}
+\begin{thebibliography}{3}
+
+\bibitem{berners2001semantic}
+Tim Berners-Lee, James Hendler, and Ora Lassila. 2001.
+\newblock The Semantic Web.
+\newblock \emph{Scientific American} 284, 5 (2001), 34--43.
+
+\bibitem{bizer2011linked}
+Christian Bizer, Tom Heath, and Tim Berners-Lee. 2011.
+\newblock Linked Data: The Story So Far.
+\newblock In \emph{Semantic Services, Interoperability and Web Applications}. IGI Global, 205--227.
+
+\bibitem{hassanzadeh2009linkedmdb}
+Oktie Hassanzadeh and Mariano Consens. 2009.
+\newblock Linked Movie Data Base.
+\newblock In \emph{Linked Data on the Web (LDOW2009)}.
+
+\end{thebibliography}
+\end{document}
