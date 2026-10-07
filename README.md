@@ -1,4 +1,4 @@
-# Screenplay-to-Screen: An Interoperable Knowledge Representation for Film Casting and Production Networks
+# ProduCast: An Interoperable Knowledge Representation for Film Casting and Production Networks
 
 ![Course](https://img.shields.io/badge/Course-CSC501%20Fall%202026-blue)
 ![University](https://img.shields.io/badge/Institution-University%20of%20Victoria-gold)
@@ -24,6 +24,12 @@ This project explores four progressive paradigms of data representation:
 2. **Logical Relational Schema:** Translating ER representations into normalized relational tables (3NF/BCNF) with foreign key constraints, evaluated via complex multi-join SQL queries.
 3. **Semantic Web Representation:** Building an RDF/OWL domain ontology to explicitly capture non-functional artistic synergy, directorial styles, and trope archetypes.
 4. **Knowledge Graph & Triple Store:** Storing knowledge graph triples in an RDF database (e.g., GraphDB / Jena) and executing expressive SPARQL queries.
+
+---
+
+## 🚀 Milestone Progress
+* **Milestone 1:** Defined the core information need, scoped domain boundaries, and established team responsibilities.
+* **Milestone 2:** Conducted a comparative analysis of operational databases (IMDb, TMDb) against semantic graphs (LinkedMDB) and designed the foundational Conceptual ER Diagram using a `Performance_Role` bridge entity.
 
 ---
 
