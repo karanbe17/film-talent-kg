@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ProduCast UI</title>
+    <style>body { font-family: Arial, sans-serif; margin: 20px; }</style>
+</head>
+<body>
+    <h1>ProduCast: Talent & Production Network</h1>
+    
+    <h2>1. Register New Talent</h2>
+    <form action="{{ url_for('add_talent') }}" method="POST">
+        <input type="text" name="name" placeholder="Enter Name" required>
+        <button type="submit">Add Actor</button>
+    </form>
+
+    <h2>2. Search Movies by Genre</h2>
+    <form action="{{ url_for('search') }}" method="POST">
+        <input type="text" name="genre" placeholder="Enter Genre (e.g., Sci-Fi)" required>
+        <button type="submit">Search</button>
+    </form>
+    {% if show_search %}
+        <ul>
+        {% for row in search_results %}
+            <li>{{ row['Title'] }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h2>3. Movie Database</h2>
+    <ul>
+        {% for movie in movies %}
+            <li>{{ movie['Title'] }} ({{ movie['Genre'] }} - {{ movie['StudioName'] }}) 
+                <form action="{{ url_for('delete_movie', id=movie['MovieID']) }}" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
