@@ -4,7 +4,7 @@
 ![University](https://img.shields.io/badge/Institution-University%20of%20Victoria-gold)
 ![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green)
 
-An interoperable data modeling architecture and knowledge representation framework designed to assist directors and producers in multi-relational talent assembly—spanning cast (leads, supporting, cameos) and creative crew (cinematographers, writers, composers).
+An interoperable data modeling architecture and knowledge representation framework designed to assist directors and producers in multi-relational talent assembly—spanning cast (leads, supporting, cameos) and creative crew (cinematographers).
 
 ---
 
@@ -30,6 +30,8 @@ This project explores four progressive paradigms of data representation:
 ## 🚀 Milestone Progress
 * **Milestone 1:** Defined the core information need, scoped domain boundaries, and established team responsibilities.
 * **Milestone 2:** Conducted a comparative analysis of operational databases (IMDb, TMDb) against semantic graphs (LinkedMDB) and designed the foundational Conceptual ER Diagram using a `Performance_Role` bridge entity.
+* **Milestone 3:** Project Presentation (3-Minute Talk).
+* **Milestone 4 (Completed):** Designed and implemented the relational schema (SQLite), effectively mapping ISA hierarchies and enforcing strict `ON DELETE CASCADE` constraints. Developed and integrated a Python Flask web UI to abstract database interactions, enabling secure execution of DML operations (INSERT, SELECT, DELETE) while verifying continuous data integrity.
 
 ---
 
@@ -39,10 +41,11 @@ The project artifacts and milestone deliverables are organized as follows:
 
 | Directory / File | Description |
 | :--- | :--- |
-| `docs/` | Milestone reports, research proposal drafts, and presentation slides. |
-| `src/relational/` | Conceptual ERD assets, SQL DDL relational schemas, and data manipulation queries. |
-| `src/ontology/` | RDF/OWL domain ontology definitions, SPARQL query scripts, and mapping rules. |
-| `data/` | Dataset samples, metadata extracts, and graph triples. |
+| `docs/` | Milestone reports (LaTeX source and compiled PDFs), architectural diagrams, and UI testing screenshots. |
+| `src/relational/sql/` | SQL DDL schema definitions, DML insertion scripts, and the local SQLite database file. |
+| `src/ui/` | Python Flask backend (`app.py`) and frontend HTML templates for the web application interface. |
+| `src/ontology/` | RDF/OWL domain ontology definitions, SPARQL query scripts, and mapping rules (Future Phase). |
+| `data/` | Dataset samples, metadata extracts, and future graph triples. |
 | `README.md` | Project overview, team roles, architecture summary, and setup instructions. |
 | `LICENSE` | CC BY-NC-SA 4.0 licensing terms for open academic reuse. |
 
