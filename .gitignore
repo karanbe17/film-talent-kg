@@ -1,0 +1,15 @@
+# Python virtual environments
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Local SQLite databases (Ensures reproducibility)
+data/preprocessed/*.db
+*.db
+*.sqlite3
+
+# OS hidden files
+.DS_Store
