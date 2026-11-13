@@ -1,40 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>ProduCast UI</title>
-    <style>body { font-family: Arial, sans-serif; margin: 20px; }</style>
-</head>
-<body>
-    <h1>ProduCast: Talent & Production Network</h1>
+{% extends "base.html" %}
+{% block body %}
+
+<h2>1. Network Data Entry</h2>
+<div class="grid">
+    <fieldset>
+        <legend>Add Director (+ Movie)</legend>
+        <form method="post" action="{{ url_for('add_director') }}">
+            <input name="name" placeholder="Director Name" required>
+            <input name="title" placeholder="Movie Title (Optional)">
+            <input name="genre" placeholder="Genre">
+            <input name="studio" placeholder="Studio">
+            <button>Add Director</button>
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Add Actor</legend>
+        <form method="post" action="{{ url_for('add_actor') }}">
+            <input name="name" placeholder="Actor Name" required>
+            <button>Add Actor</button>
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Add Movie Project</legend>
+        <form method="post" action="{{ url_for('add_movie') }}">
+            <input name="title" placeholder="Title" required>
+            <input name="genre" placeholder="Genre" required>
+            <input name="studio" placeholder="Studio">
+            <input name="director" placeholder="Director Name (Optional)">
+            <button>Add Movie</button>
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Cast Talent</legend>
+        <form method="post" action="{{ url_for('add_cast') }}">
+            <input name="movie" placeholder="Movie Title" required>
+            <input name="actor" placeholder="Actor Name" required>
+            <input name="role" placeholder="Character Name" required>
+            <select name="role_type">
+                {% for r in role_types %}
+                <option>{{r}}</option>
+                {% endfor %}
+            </select>
+            <button>Cast Actor</button>
+        </form>
+    </fieldset>
+</div>
+
+<h2>2. Search &amp; Filter Database</h2>
+<form method="get" action="{{ url_for('index') }}" class="search-bar">
+    <input name="genre" placeholder="Filter by Genre" value="{{genre}}">
+    <input name="title" placeholder="Filter by Title" value="{{title}}">
+    <input name="person" placeholder="Director or Actor Name" value="{{person}}">
+    <button>Search</button> 
+    <a href="{{ url_for('index') }}">Clear</a>
+</form>
+
+<h2>3. Project Portfolio (Movies)</h2>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Studio</th>
+        <th>Director(s)</th>
+        <th style="width: 150px;">Actions</th>
+    </tr>
+    {% for m in movies %}
+    <tr>
+        <td><strong>{{m.Title}}</strong></td>
+        <td><span class="badge">{{m.Genre}}</span></td>
+        <td>{{m.StudioName or '--'}}</td>
+        <td>{{m.Directors or '--'}}</td>
+        <td>
+            <a href="{{ url_for('edit_movie_form', movie_id=m.Id) }}" style="margin-right: 10px;">Edit</a>
+            <form class="inline" method="post" action="{{ url_for('delete_movie', movie_id=m.Id) }}" onsubmit="return confirm('Delete {{m.Title}}?')">
+                <button class="del">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5" style="text-align: center; color: #888; padding: 30px;">No movies match your query.</td></tr>
+    {% endfor %}
+</table>
+
+<h2>4. Talent Rosters</h2>
+<div class="grid">
+    <div>
+        <h3 style="color: var(--gold); margin-bottom: 5px;">Directors</h3>
+        <table>
+            <tr><th>Name</th><th># Movies</th><th>Action</th></tr>
+            {% for d in directors %}
+            <tr>
+                <td>
+                    <form class="inline" method="post" action="{{ url_for('rename_person', person_id=d.PersonId) }}">
+                        <input type="text" name="name" value="{{d.Name}}" style="width: 120px; padding: 6px; margin: 0 5px 0 0;">
+                        <button style="background: #444;">Rename</button>
+                    </form>
+                </td>
+                <td style="text-align: center;"><strong>{{d.NumberOfMovies}}</strong></td>
+                <td>
+                    <form class="inline" method="post" action="{{ url_for('delete_person', person_id=d.PersonId) }}" onsubmit="return confirm('Delete {{d.Name}}?')">
+                        <button class="del">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
     
-    <h2>1. Register New Talent</h2>
-    <form action="{{ url_for('add_talent') }}" method="POST">
-        <input type="text" name="name" placeholder="Enter Name" required>
-        <button type="submit">Add Actor</button>
-    </form>
+    <div>
+        <h3 style="color: var(--gold); margin-bottom: 5px;">Actors</h3>
+        <table>
+            <tr><th>Name</th><th>Action</th></tr>
+            {% for a in actors %}
+            <tr>
+                <td>
+                    <form class="inline" method="post" action="{{ url_for('rename_person', person_id=a.PersonId) }}">
+                        <input type="text" name="name" value="{{a.Name}}" style="width: 150px; padding: 6px; margin: 0 10px 0 0;">
+                        <button style="background: #444;">Rename</button>
+                    </form>
+                </td>
+                <td>
+                    <form class="inline" method="post" action="{{ url_for('delete_person', person_id=a.PersonId) }}" onsubmit="return confirm('Delete {{a.Name}}?')">
+                        <button class="del">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 
-    <h2>2. Search Movies by Genre</h2>
-    <form action="{{ url_for('search') }}" method="POST">
-        <input type="text" name="genre" placeholder="Enter Genre (e.g., Sci-Fi)" required>
-        <button type="submit">Search</button>
-    </form>
-    {% if show_search %}
-        <ul>
-        {% for row in search_results %}
-            <li>{{ row['Title'] }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+<h2>5. Casting Ledger (Performance Roles)</h2>
+<table>
+    <tr><th>Movie</th><th>Actor</th><th>Character Role</th><th>Type</th><th>Action</th></tr>
+    {% for c in cast %}
+    <tr>
+        <td><strong>{{c.Title}}</strong></td>
+        <td>{{c.Actor}}</td>
+        <td>{{c.RoleName}}</td>
+        <td><span class="badge">{{c.RoleType}}</span></td>
+        <td>
+            <form class="inline" method="post" action="{{ url_for('delete_cast', performance_id=c.Id) }}">
+                <button class="del">Remove</button>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5" style="text-align: center; color: #888; padding: 30px;">No casting records available.</td></tr>
+    {% endfor %}
+</table>
 
-    <h2>3. Movie Database</h2>
-    <ul>
-        {% for movie in movies %}
-            <li>{{ movie['Title'] }} ({{ movie['Genre'] }} - {{ movie['StudioName'] }}) 
-                <form action="{{ url_for('delete_movie', id=movie['MovieID']) }}" method="POST" style="display:inline;">
-                    <button type="submit">Delete</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% endblock %}
