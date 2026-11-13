@@ -7,24 +7,21 @@
 ![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green)
 
 ## 1. Overview
-**ProduCast** is a progressive data modeling architecture and knowledge representation framework designed to assist directors and producers in multi-relational talent assembly. The system maps complex industry relationships—spanning cast (leads, supporting, cameos) and creative crew (cinematographers)—to ensure interoperable and semantically rich data retrieval.
+**ProduCast** (formally *Representing Film Casting and Production Networks*) is a progressive data modeling architecture and knowledge representation framework designed to assist directors and producers in multi-relational talent assembly. The system maps complex industry relationships—spanning cast (leads, supporting, cameos) and creative crew (directors)—to ensure interoperable and semantically rich data retrieval.
 
 This project transitions through Conceptual Modeling (ERD), Logical Relational Schemas (SQLite/3NF), and ultimately Semantic Web Knowledge Graphs (RDF/OWL/SPARQL).
 
 ## 2. System Architecture
-The current relational milestone is built on a three-tier architecture:
-1. **Presentation Layer:** HTML/CSS web forms for safe data entry and search retrieval.
-2. **Application Layer:** A Python Flask backend (`app.py`) that translates HTTP requests into SQL Data Manipulation Language (DML) commands.
-3. **Data Layer:** A lightweight local SQLite database (`ProduCast.db`) enforcing ISA hierarchies and `ON DELETE CASCADE` referential integrity constraints.
+The current relational milestone utilizes a strict, fully decoupled three-tier architecture:
+1. **Presentation Layer (`src/ui`):** A Flask web application rendering pure HTML/CSS Jinja2 templates (Cinematic Dark Mode). Contains zero raw SQL.
+2. **Business Logic Layer (`src/biz`):** Orchestrates multi-step transactions, sanitizes inputs, and raises `BizError` exceptions to enforce integrity rules before data hits the database.
+3. **Data Access Layer (`src/dal`):** Domain-specific modules (`movie_dal.py`, `person_dal.py`) that handle all parameterized SQL execution. Backed by `config.py` for dynamic `pathlib` relative pathing, guaranteeing crash-free instantiation across any host environment (including GitHub Codespaces).
 
 ## 3. Prerequisites
 To run this project locally, ensure you have the following installed:
 * **Python 3.9+**
 * **Git**
 * A modern web browser
-
-**Required Python Packages:**
-* `Flask==3.0.0`
 
 ## 4. Installation Guide
 Follow these steps to clone the repository and set up the local environment.
@@ -44,25 +41,29 @@ venv\Scripts\activate
 source venv/bin/activate
 
 # 4. Install dependencies
-pip install Flask
+pip install -r requirements.txt
 ```
 
 ## 5. Quickstart & Demonstration
-The SQLite database (`ProduCast.db`) is pre-configured with the DDL schema and seed data. To launch the user interface and demonstrate the DML operations:
+The system includes an automated initialization sequence. You do not need to manually build the database.
 
 ```bash
-# Navigate to the UI directory
-cd src/ui
-
-# Run the Flask application
-python app.py
+# Run the application directly from the repository root
+python main.py
 ```
+
+*Note: If `ProduCast.db` is missing, `main.py` will automatically read `01_schema.sql` and `02_seed.sql` to bootstrap the schema and seed the database in the `data/preprocessed/` directory before launching the server.*
+
 **Access the Application:** Open your web browser and navigate to `http://127.0.0.1:5000`. 
 
 **Demonstration Steps:**
-1. **INSERT:** Use the "Register New Talent" form to add an actor.
-2. **SELECT:** Use the "Search Movies by Genre" form (e.g., enter "Sci-Fi") to dynamically filter the database.
-3. **DELETE:** Click the "Delete" button next to any movie in the primary database to verify the `ON DELETE CASCADE` backend constraints (which automatically purge associated bridge table records).
+1. **INSERT:** Use the "Add Movie Project" and "Cast Talent" forms to create multi-relational links.
+2. **SELECT:** Use the "Search & Filter Database" form (e.g., enter "Sci-Fi") to dynamically query the portfolio.
+3. **DELETE (Cascade):** Click "Delete" next to a movie in the Project Portfolio. Scroll down to the Casting Ledger to verify that `ON DELETE CASCADE` automatically purged all associated bridge table records without leaving orphans.
+
+**Additional Commands:**
+* `python main.py --queries`: Executes the demonstration DML tests (multi-join aggregations, subqueries) directly in the terminal.
+* `python main.py --reset`: Drops the existing database and safely rebuilds it from the seed files.
 
 ## 6. Team Members & Responsibilities
 
@@ -85,11 +86,16 @@ python app.py
 ```text
 film-talent-kg/
 ├── docs/                     # LaTeX reports, architecture diagrams, and UI screenshots
+├── data/
+│   └── preprocessed/         # Auto-generated SQLite database (ProduCast.db)
 ├── src/
-│   ├── relational/sql/       # SQL DDL schemas and local SQLite database (.db)
-│   ├── ui/                   # Flask backend (app.py) and frontend HTML templates
+│   ├── cmn/                  # Central configuration and dynamic pathing
+│   ├── biz/                  # Business logic, validation, and multi-step orchestration
+│   ├── dal/                  # Data Access Layer and relational SQL scripts
+│   ├── ui/                   # Flask presentation layer and HTML templates
 │   └── ontology/             # RDF/OWL domain ontologies and SPARQL scripts (Upcoming)
-├── data/                     # Dataset samples and knowledge graph triples
+├── main.py                   # Single entry point / automated quickstart script
+├── requirements.txt          # Python dependencies (Flask>=3.0)
 ├── README.md                 # Project documentation and setup instructions
 └── LICENSE                   # CC BY-NC-SA 4.0 licensing terms
 ```
