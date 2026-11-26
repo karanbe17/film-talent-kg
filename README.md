@@ -1,3 +1,5 @@
+> **Milestone 5 — ProduCast producer workspace:** [Semantic Web setup and catalogue](README_SEMANTIC.md). Run `python -m pip install -r requirements-semantic.txt` then `python semantic_main.py --reset` for the first launch of the revised catalogue. For Virtuoso, follow the linked setup instructions. The remaining README documents the original relational milestone.
+
 # ProduCast: Interoperable Knowledge Representation for Film Casting
 
 ![Course](https://img.shields.io/badge/Course-CSC501%20Fall%202026-blue)
@@ -104,3 +106,7 @@ film-talent-kg/
 This project and its associated software artifacts are licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/) License. 
 
 If referencing this architecture in academic work, please cite the Milestone 4 report located in the `/docs` directory.
+
+## Milestone 5 — Semantic Web
+
+See [Semantic Web README and quickstart](README_SEMANTIC.md). The new multi-page ProduCast interface runs with `python semantic_main.py --reset` after installing `requirements-semantic.txt`. The original SQLite application and database are preserved separately.
