@@ -1,57 +1,235 @@
-# ProduCast — Semantic Web (CSC501 Milestone 5)
+# ProduCast — Semantic Web technical guide
 
-ProduCast is the interface and academic project name. This milestone adds an RDF/OWL knowledge graph and a server-rendered, multi-page application without altering the original SQLite database or relational code. The original README and `main.py` are retained for Milestone 4. No React, no CDN dependencies, no movie posters scraped from external sources. The logo and abstract film artwork are local SVG/CSS assets.
+[Back to project overview](README.md) · [ACM report (PDF)](docs/5_Semantic_Karan_Moksh.pdf) · [LaTeX source](docs/5_Semantic_Karan_Moksh.tex)
 
-## Recommended quickstart: Virtuoso (Windows PowerShell)
+This guide describes how to reproduce the Milestone 5 semantic implementation with OpenLink Virtuoso or the embedded RDFLib fallback. The earlier relational application is preserved separately.
 
-Install Docker Desktop and start it. From the repository root, choose a private local password (do not commit it):
+## 1. Environment and installation
+
+Use Python 3.11 (tested), Git and a browser. For Virtuoso, install and start Docker with Compose. All commands below run from the repository root. On macOS/Linux, substitute `python3` for `python` if needed.
+
+### Automated setup
+
+```bash
+python quickstart_semantic.py
+```
+
+This creates `.venv`, installs dependencies and launches the RDFLib application on http://127.0.0.1:8000. Use `--port 8001` to choose another application port.
+
+### Manual setup
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment on Windows PowerShell:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Or on macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Then install dependencies:
+
+```bash
+python -m pip install -r requirements-semantic.txt
+```
+
+## 2. Virtuoso setup
+
+Set a private password in the terminal used for Docker and Python. The placeholder below must be replaced with your own value.
+
+Windows PowerShell:
 
 ```powershell
 $env:PRODUCAST_VIRTUOSO_PASSWORD = 'replace-with-your-local-password'
+```
+
+macOS/Linux:
+
+```bash
+export PRODUCAST_VIRTUOSO_PASSWORD='replace-with-your-local-password'
+```
+
+Start the database:
+
+```bash
 docker compose up -d
+docker compose ps
 docker compose logs --tail=30 virtuoso
-python -m pip install -r requirements-semantic.txt
+```
+
+A running container does not necessarily mean the HTTP server is ready. Check the logs and confirm that Conductor opens before verification.
+
+| Endpoint | Purpose |
+| --- | --- |
+| http://127.0.0.1:8890/conductor | Administration (`dba` and configured password) |
+| http://127.0.0.1:8890/sparql | Public query interface, subject to permissions |
+| http://127.0.0.1:8890/sparql-auth | Authenticated application SPARQL endpoint |
+| http://127.0.0.1:8000 | ProduCast web application |
+
+After manual installation, run:
+
+```bash
 python verify_virtuoso.py
 python semantic_main.py --virtuoso
 ```
 
-Wait for the server to finish initialization before running verification. Conductor: http://127.0.0.1:8890/conductor (user `dba`, password chosen above). Application: http://127.0.0.1:8000. The official OpenLink open-source Docker image is used. On macOS/Linux use `export PRODUCAST_VIRTUOSO_PASSWORD='your-password'` instead. If an existing Virtuoso instance is already running, set `PRODUCAST_VIRTUOSO_URL` and `PRODUCAST_VIRTUOSO_USER` as needed and omit Docker startup. The authenticated `/sparql-auth` endpoint must allow SELECT and UPDATE for the configured user; use Conductor to configure permissions if necessary. Never enable anonymous writes or expose the local app publicly. If changing the password after initializing the Docker volume, change it inside Virtuoso too; the environment setting only initializes new databases.
+Alternatively, `python quickstart_semantic.py --virtuoso` handles Python installation and application launch (Docker must already be running).
 
-The application loads the RDF/XML ontology and seed into separate named graphs through SPARQL INSERT DATA if absent. Conductor can also import the RDF/XML files manually. Data graph: `https://github.com/karanbe17/film-talent-kg/graph/data`; ontology graph: the same IRI with `/ontology` appended. The Query Lab SELECTs target the data graph. `python semantic_main.py --virtuoso --queries` runs the remote SELECTs in terminal; `verify_virtuoso.py` checks remote loading, SELECT, INSERT, UPDATE and DELETE in disposable graphs. `--reset` clears and reseeds the application graphs; omit it to preserve edits. `docker compose down` stops the server without deleting its named volume.
+The adapter uses HTTP Digest authentication and the official OpenLink open-source Docker image. It loads missing named graphs automatically. For an existing server, configure `PRODUCAST_VIRTUOSO_URL` and `PRODUCAST_VIRTUOSO_USER` as needed, alongside the password. The configured user must have SELECT and UPDATE permissions. Do not enable anonymous writes or expose this development application publicly.
 
-## Tested fallback: embedded mode
+The Docker password setting initializes a new database volume; changing the environment variable does not change an existing database account password. Stop Virtuoso with `docker compose down`, which preserves its named volume.
 
-If Virtuoso is unavailable, `python quickstart_semantic.py` installs dependencies and launches the original RDFLib-backed version. `python semantic_main.py --reset` resets only local sample data; omit reset on later launches. The original relational application remains available via `python main.py` after installing `requirements.txt`. No React or CDN dependencies.
+## 3. Data model and conversion
 
-## Architecture and verification status
+The ontology is stored in `src/dal/models/semantic/producast.owl`; the initial RDF/XML instance graph is `src/dal/models/semantic/seed.rdf`.
 
-Browser → FastAPI/Jinja2 → domain services → Virtuoso HTTP SPARQL adapter → persistent named graphs in Virtuoso. RDFLib converts SQLite, parses RDF/XML and stages validation of edits; remote SELECT and SPARQL update requests execute in Virtuoso when `--virtuoso` is selected. The adapter stages the small instance graph locally and sends scoped triple changes; use a single writer, not a concurrent production deployment. The fallback uses atomic RDF/XML files. Five automated tests passed (four local application tests and one simulated SPARQL protocol test); a live Virtuoso server and Protégé reasoner were not available in the development environment. Run `verify_virtuoso.py` and validate the ontology in Protégé before claiming live verification. See OpenLink setup: https://www.openlinksw.com/howto/install/docker/ .
+The converter in `src/dal/catalogue.py` reads `data/raw/film_catalogue.txt` and `data/raw/award_catalogue.txt`, builds a normalized SQLite staging database (`data/preprocessed/catalogue.db`) and produces the RDF instance graph.
 
-## Data and conversion
+| Relational input | Semantic representation |
+| --- | --- |
+| Person and Profession | Person resource with Actor, Director or CameraMan types |
+| Studio | Studio resource and production company relationship |
+| Movie | Movie resource, title, genre and release year |
+| MovieDirector / MovieCamera | `directedBy` / `filmedBy` relationships |
+| PerformanceRole | Association resource linked by `belongsTo`, `filledBy` and `characterName` |
+| Award | Award occurrence linked to recipient, film, category and year |
 
-Milestone 4 is preserved unchanged. Milestone 5 uses a curated replacement catalogue of selected real films, credits and award wins, stored in `data/raw/film_catalogue.txt` and `data/raw/award_catalogue.txt`. The original SQLite data had incomplete and inaccurate credits. `src/dal/catalogue.py` builds a separate normalized SQLite staging database (`data/preprocessed/catalogue.db`) and converts it into RDF/XML. Run `python semantic_main.py --init-only --reset` to regenerate the seed and local working graph. When upgrading from an earlier version, use `--reset` once; `--virtuoso --reset` also replaces the application server graphs. Export valuable user changes before resetting.
+Stable staging identifiers become IRIs. Names and titles are not assumed globally unique. The conceptual ER model does not contain artificial surrogate ID attributes. See [ER extensions](docs/er/semantic_extensions.md) and [source notes](data/raw/SOURCES.md).
 
-| Relational input | RDF representation |
-|---|---|
-| Person and Profession | Person individual plus Actor, Director or CameraMan type |
-| Studio | Studio resource and selected production company relationship |
-| Movie | Movie resource, title, genre, release year |
-| MovieDirector / MovieCamera | directedBy / filmedBy edges |
-| PerformanceRole | Association resource with belongsTo, filledBy, characterName |
-| Award | Award occurrence, recipient, film, category, ceremony year |
+The sample contains 35 films, 104 distinct people, 29 companies, 59 acting credits and 82 selected award wins. It is a curated sample, not a complete or independently verified commercial database. Unknown budgets, billing order, role classifications and exact dates are omitted where unavailable. One selected production company is recorded per film.
 
-35 films, 43 actors, 31 directors, 31 cinematographers, 104 distinct people, 29 production companies, 59 role credits and 82 selected award wins. Every film has a director, selected cast, production company and cinematographer. Each included actor has a film credit. `awardedFor` and `filmedBy` extend the conceptual baseline, with no surrogate ID attributes added to the ERD. Stable staging identifiers become IRIs; names and titles are not asserted globally unique. Unknown budgets, role classifications, billing order and exact dates are omitted. One selected production company per film is recorded, not every producer or studio. Award wins are not exhaustive career totals. Some actors have no wins in this selected sample; this is not a statement about their complete career.
+### Named graphs
 
-See `data/raw/SOURCES.md` for review links and limitations. The catalogue is manually curated with AI assistance, not an independently verified or complete commercial database. Source metadata is retained in RDF and documentation but hidden from the producer-facing pages.
+| Graph | IRI |
+| --- | --- |
+| Instance data | `https://github.com/karanbe17/film-talent-kg/graph/data` |
+| Ontology | `https://github.com/karanbe17/film-talent-kg/graph/data/ontology` |
 
-## Demonstration and verification
+The application stages RDF/XML conversion and scoped change validation with RDFLib; Virtuoso mode executes remote SPARQL queries and updates. The adapter is intended for a small single-writer academic demonstration, not concurrent production deployment.
 
-1. Open Talent, select Actors, search Leonardo DiCaprio, and inspect his characters, films, awards and repeated collaboration with Martin Scorsese. Select Directors separately. Movies: search Rocky; inspect John G. Avildsen, Sylvester Stallone and Rocky Balboa.
-2. Collaborations: search Cillian Murphy, Christopher Nolan or Leonardo DiCaprio; select repeat partnerships only. Browse awards, studios and casting independently. All directories use pagination.
-3. Create a test studio, person, movie, casting role and award, edit, reload and delete. Removing a film removes dependent roles and awards; removing a person removes dependent roles and awards. In-use studios cannot be deleted. Minimum participation is not fully enforced during incremental entry.
-4. Research tools in the footer opens six prepared SELECT queries; data export downloads RDF/XML. Run `python demo_sparql.py` for isolated INSERT, UPDATE and DELETE. Run `python semantic_main.py --virtuoso --queries` for actual remote queries after successful server setup.
-5. `python -m pip install -r requirements-test.txt`, then `python -m unittest discover -s tests -v`. Open `src/dal/models/semantic/producast.owl` in Protégé and run a reasoner. Live Virtuoso and Protégé verification remain team tasks.
+## 4. Reproducible SPARQL demonstration
 
-## FAIR / citation / license
+The six prepared queries cover cast by film, collaboration counts, studio film counts, award recipients, camera credits and talent with multiple professions. They are accessible through the research tools and stored as `.sparql` files under `src/dal/models/semantic/`.
 
-Repository: https://github.com/karanbe17/film-talent-kg . Keep access available to course instructors/markers. The namespace uses the project repository URI. Reusable RDF/XML, standalone SPARQL, converter, explicit provenance, pinned dependencies, setup and test scripts are included. Original repository license applies (see LICENSE). Cite the course manual (CSC501 Fall 2026 Milestone 5), W3C RDF 1.1 Concepts, OWL 2 Primer, SPARQL 1.1 Query and Update, RDFLib and OpenLink Virtuoso. AI assistance is documented in `docs/AI_USAGE_M5.md`; students must critically review and disclose actual contributions before submission.
+Run them locally or remotely:
+
+```bash
+python semantic_main.py --queries
+python semantic_main.py --virtuoso --queries
+```
+
+An example query for the Virtuoso query interface (subject to graph read permissions):
+
+```sparql
+PREFIX pc: <https://github.com/karanbe17/film-talent-kg/ontology#>
+SELECT ?title
+FROM <https://github.com/karanbe17/film-talent-kg/graph/data>
+WHERE { ?movie a pc:Movie ; pc:title ?title . }
+ORDER BY ?title
+```
+
+To demonstrate temporary CRUD operations without changing the original sample:
+
+```bash
+python demo_sparql.py
+```
+
+For live Virtuoso graph loading and CRUD verification using disposable graphs:
+
+```bash
+python verify_virtuoso.py
+```
+
+In the website, create temporary records through the relevant forms, inspect their relationships, update them, and delete them afterward. Removing a film or person removes associated dependent roles and awards; in-use studios cannot be deleted. Minimum participation constraints are not fully enforced during incremental entry.
+
+## 5. Testing and verification
+
+```bash
+python -m pip install -r requirements-test.txt
+python -m unittest discover -s tests -v
+```
+
+| Check | Recorded result |
+| --- | --- |
+| Automated tests | Five passed during implementation (four local application tests, one simulated protocol test) |
+| Local SPARQL DML | All assertions passed; original data unchanged |
+| Live Virtuoso | Graph loading, SELECT, INSERT, UPDATE and DELETE passed on the merged repository, as reported by the team |
+| Studio film counts | 29 rows |
+| Award recipients | 82 rows |
+| Camera crew credits | 35 rows |
+| Talent with multiple professions | 1 row |
+| Website and quickstart | Successful execution reported by the team |
+| Ontology | RDF/XML parsing and structural inspection; full OWL reasoner validation not claimed |
+
+To inspect the ontology visually, open `producast.owl` in Protégé. This is separate from RDF/XML parsing and live SPARQL verification.
+
+## 6. Reset, maintenance and troubleshooting
+
+| Command | Effect |
+| --- | --- |
+| `python semantic_main.py --reset` | Regenerates the local sample and replaces the local working graph. |
+| `python semantic_main.py --virtuoso --reset` | Replaces the application named graphs with the seed and ontology. |
+| `python semantic_main.py --init-only --reset` | Regenerates local seed and working graph without launching the website. |
+| `docker compose down` | Stops Virtuoso while preserving its volume. |
+
+**Reset operations discard changes in the affected working graphs.** Export valuable edits before resetting. Omit `--reset` on subsequent launches to retain changes.
+
+| Symptom | Action |
+| --- | --- |
+| Docker daemon connection error | Start Docker and check `docker info`. |
+| Connection closed immediately after startup | Inspect `docker compose logs --tail=30 virtuoso` and verify HTTP readiness. |
+| HTTP authentication failure | Confirm account credentials and authenticated SPARQL permissions. |
+| Missing Python module | Activate the correct environment and reinstall the requirements. |
+| Port 8000 already in use | Stop the existing application or launch with `--port 8001`. |
+
+Generated databases, working RDF files, caches and virtual environments are excluded from version control. Keep credentials private.
+
+## 7. Application previews
+
+The following screenshots show the rebuilt application in embedded RDFLib mode; live Virtuoso verification is recorded separately above. Open the links below to view the screenshots at full size.
+
+### Movie catalogue
+
+[View Movie catalogue screenshot](docs/semantic_screenshots/movies.png)
+
+### Movie profile
+
+[View Movie profile screenshot](docs/semantic_screenshots/rocky.png)
+
+### Director directory
+
+[View Director directory screenshot](docs/semantic_screenshots/directors.png)
+
+### Talent directory
+
+[View Talent directory screenshot](docs/semantic_screenshots/talent.png)
+
+### Awards
+
+[View Awards screenshot](docs/semantic_screenshots/awards.png)
+
+### SPARQL research tools
+
+[View SPARQL research tools screenshot](docs/semantic_screenshots/query.png)
+
+[Overview](docs/semantic_screenshots/overview.png) · [Talent portfolio](docs/semantic_screenshots/portfolio.png) · [Collaborations](docs/semantic_screenshots/connections.png) · [Mobile layout](docs/semantic_screenshots/mobile.png)
+
+## 8. References and documentation
+
+- [Project overview and contributors](README.md)
+- [Milestone 5 ACM report](docs/5_Semantic_Karan_Moksh.pdf)
+- [Catalogue provenance and limitations](data/raw/SOURCES.md)
+- [W3C RDF 1.1 Concepts](https://www.w3.org/TR/rdf11-concepts/)
+- [W3C OWL 2 Primer](https://www.w3.org/TR/owl2-primer/)
+- [W3C SPARQL 1.1](https://www.w3.org/TR/sparql11-overview/)
+- [RDFLib documentation](https://rdflib.readthedocs.io/)
+- [OpenLink Virtuoso Docker setup](https://www.openlinksw.com/howto/install/docker/)
+
+Repository access, documented IRIs, standard semantic formats, source provenance and repeatable setup support FAIR-oriented reuse. See [LICENSE](LICENSE) for repository licensing terms.
