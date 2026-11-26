@@ -1,0 +1,35 @@
+Oppenheimer|2023|Historical drama|Syncopy|Christopher Nolan|Hoyte van Hoytema|Cillian Murphy~J. Robert Oppenheimer;Robert Downey Jr.~Lewis Strauss
+Inception|2010|Science fiction|Syncopy|Christopher Nolan|Wally Pfister|Leonardo DiCaprio~Dom Cobb;Cillian Murphy~Robert Fischer
+The Dark Knight|2008|Crime thriller|Syncopy|Christopher Nolan|Wally Pfister|Christian Bale~Bruce Wayne / Batman;Heath Ledger~The Joker;Cillian Murphy~Jonathan Crane / Scarecrow
+The Revenant|2015|Adventure drama|New Regency|Alejandro González Iñárritu|Emmanuel Lubezki|Leonardo DiCaprio~Hugh Glass;Tom Hardy~John Fitzgerald
+Birdman|2014|Comedy drama|New Regency|Alejandro González Iñárritu|Emmanuel Lubezki|Michael Keaton~Riggan Thomson;Emma Stone~Sam Thomson
+The Aviator|2004|Biographical drama|Appian Way Productions|Martin Scorsese|Robert Richardson|Leonardo DiCaprio~Howard Hughes;Cate Blanchett~Katharine Hepburn
+The Wolf of Wall Street|2013|Crime comedy|Appian Way Productions|Martin Scorsese|Rodrigo Prieto|Leonardo DiCaprio~Jordan Belfort;Margot Robbie~Naomi Lapaglia
+La La Land|2016|Musical romance|Summit Entertainment|Damien Chazelle|Linus Sandgren|Emma Stone~Mia Dolan;Ryan Gosling~Sebastian Wilder
+Poor Things|2023|Fantasy drama|Element Pictures|Yorgos Lanthimos|Robbie Ryan|Emma Stone~Bella Baxter;Mark Ruffalo~Duncan Wedderburn
+The Favourite|2018|Historical drama|Element Pictures|Yorgos Lanthimos|Robbie Ryan|Olivia Colman~Queen Anne;Emma Stone~Abigail Masham;Rachel Weisz~Sarah Churchill
+Gladiator|2000|Historical epic|Scott Free Productions|Ridley Scott|John Mathieson|Russell Crowe~Maximus Decimus Meridius;Joaquin Phoenix~Commodus
+Joker|2019|Psychological drama|DC Films|Todd Phillips|Lawrence Sher|Joaquin Phoenix~Arthur Fleck
+Dallas Buyers Club|2013|Biographical drama|Voltage Pictures|Jean-Marc Vallée|Yves Bélanger|Matthew McConaughey~Ron Woodroof;Jared Leto~Rayon
+The Theory of Everything|2014|Biographical drama|Working Title Films|James Marsh|Benoît Delhomme|Eddie Redmayne~Stephen Hawking
+The King's Speech|2010|Historical drama|See-Saw Films|Tom Hooper|Danny Cohen|Colin Firth~King George VI;Geoffrey Rush~Lionel Logue
+The Pianist|2002|War drama|R.P. Productions|Roman Polanski|Paweł Edelman|Adrien Brody~Władysław Szpilman
+Training Day|2001|Crime thriller|Village Roadshow Pictures|Antoine Fuqua|Mauro Fiore|Denzel Washington~Alonzo Harris
+Ray|2004|Biographical drama|Bristol Bay Productions|Taylor Hackford|Paweł Edelman|Jamie Foxx~Ray Charles
+Capote|2005|Biographical drama|United Artists|Bennett Miller|Adam Kimmel|Philip Seymour Hoffman~Truman Capote
+Lincoln|2012|Historical drama|DreamWorks Pictures|Steven Spielberg|Janusz Kamiński|Daniel Day-Lewis~Abraham Lincoln
+There Will Be Blood|2007|Period drama|Ghoulardi Film Company|Paul Thomas Anderson|Robert Elswit|Daniel Day-Lewis~Daniel Plainview
+The Father|2020|Drama|Trademark Films|Florian Zeller|Ben Smithard|Anthony Hopkins~Anthony;Olivia Colman~Anne
+Fences|2016|Drama|Escape Artists|Denzel Washington|Charlotte Bruus Christensen|Denzel Washington~Troy Maxson;Viola Davis~Rose Maxson
+12 Years a Slave|2013|Historical drama|Plan B Entertainment|Steve McQueen|Sean Bobbitt|Chiwetel Ejiofor~Solomon Northup;Lupita Nyong'o~Patsey
+Moonlight|2016|Coming-of-age drama|Plan B Entertainment|Barry Jenkins|James Laxton|Mahershala Ali~Juan
+Green Book|2018|Comedy drama|Participant Media|Peter Farrelly|Sean Porter|Mahershala Ali~Don Shirley;Viggo Mortensen~Tony Lip
+Everything Everywhere All at Once|2022|Science fiction comedy|AGBO|Daniel Kwan;Daniel Scheinert|Larkin Seiple|Michelle Yeoh~Evelyn Wang;Ke Huy Quan~Waymond Wang;Jamie Lee Curtis~Deirdre Beaubeirdre
+Nomadland|2020|Drama|Highwayman Films|Chloé Zhao|Joshua James Richards|Frances McDormand~Fern
+Three Billboards Outside Ebbing, Missouri|2017|Crime drama|Blueprint Pictures|Martin McDonagh|Ben Davis|Frances McDormand~Mildred Hayes;Sam Rockwell~Jason Dixon
+Black Swan|2010|Psychological thriller|Protozoa Pictures|Darren Aronofsky|Matthew Libatique|Natalie Portman~Nina Sayers
+The Iron Lady|2011|Biographical drama|Pathé|Phyllida Lloyd|Elliot Davis|Meryl Streep~Margaret Thatcher
+Monster|2003|Crime drama|Denver and Delilah Productions|Patty Jenkins|Steven Bernstein|Charlize Theron~Aileen Wuornos
+The Silence of the Lambs|1991|Psychological thriller|Strong Heart/Demme Production|Jonathan Demme|Tak Fujimoto|Jodie Foster~Clarice Starling;Anthony Hopkins~Hannibal Lecter
+Rocky|1976|Sports drama|Chartoff-Winkler Productions|John G. Avildsen|James Crabe|Sylvester Stallone~Rocky Balboa
+Creed|2015|Sports drama|Metro-Goldwyn-Mayer|Ryan Coogler|Maryse Alberti|Michael B. Jordan~Adonis Creed;Sylvester Stallone~Rocky Balboa

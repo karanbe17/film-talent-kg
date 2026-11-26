@@ -1,0 +1,5 @@
+# Camera crew credits
+PREFIX pc: <https://github.com/karanbe17/film-talent-kg/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?movie ?camera WHERE { ?m pc:title ?movie; pc:filmedBy/pc:name ?camera }

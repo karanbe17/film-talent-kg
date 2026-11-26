@@ -13,3 +13,9 @@ data/preprocessed/*.db
 
 # OS hidden files
 .DS_Store
+# Milestone 5 generated working graph and Python caches
+/data/preprocessed/semantic_runtime.rdf
+/data/preprocessed/semantic_runtime.tmp
+__pycache__/
+*.pyc
+.venv/

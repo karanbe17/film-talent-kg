@@ -1,0 +1,5 @@
+# Actor–director collaboration counts
+PREFIX pc: <https://github.com/karanbe17/film-talent-kg/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?actor ?director (COUNT(DISTINCT ?m) AS ?films) WHERE { ?r pc:filledBy ?a; pc:belongsTo ?m . ?m pc:directedBy ?d . ?a pc:name ?actor . ?d pc:name ?director } GROUP BY ?a ?d ?actor ?director ORDER BY DESC(?films)
