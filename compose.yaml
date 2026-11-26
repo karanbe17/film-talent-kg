@@ -1,0 +1,11 @@
+services:
+  virtuoso:
+    image: openlink/virtuoso-opensource-7:latest
+    ports:
+      - '127.0.0.1:8890:8890'
+    environment:
+      DBA_PASSWORD: ${PRODUCAST_VIRTUOSO_PASSWORD:?Set PRODUCAST_VIRTUOSO_PASSWORD first}
+    volumes:
+      - virtuoso-data:/database
+volumes:
+  virtuoso-data:

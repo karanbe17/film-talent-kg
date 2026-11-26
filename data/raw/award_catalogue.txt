@@ -1,0 +1,82 @@
+Cillian Murphy|Oppenheimer|2024|Academy Award|Best Actor
+Robert Downey Jr.|Oppenheimer|2024|Academy Award|Best Supporting Actor
+Christopher Nolan|Oppenheimer|2024|Academy Award|Best Director
+Hoyte van Hoytema|Oppenheimer|2024|Academy Award|Best Cinematography
+Cillian Murphy|Oppenheimer|2024|Golden Globe|Best Actor – Motion Picture, Drama
+Robert Downey Jr.|Oppenheimer|2024|Golden Globe|Best Supporting Actor – Motion Picture
+Christopher Nolan|Oppenheimer|2024|Golden Globe|Best Director – Motion Picture
+Leonardo DiCaprio|The Revenant|2016|Academy Award|Best Actor
+Leonardo DiCaprio|The Revenant|2016|Golden Globe|Best Actor – Motion Picture, Drama
+Alejandro González Iñárritu|The Revenant|2016|Academy Award|Best Director
+Emmanuel Lubezki|The Revenant|2016|Academy Award|Best Cinematography
+Alejandro González Iñárritu|Birdman|2015|Academy Award|Best Director
+Emmanuel Lubezki|Birdman|2015|Academy Award|Best Cinematography
+Michael Keaton|Birdman|2015|Golden Globe|Best Actor – Motion Picture, Musical or Comedy
+Cate Blanchett|The Aviator|2005|Academy Award|Best Supporting Actress
+Leonardo DiCaprio|The Wolf of Wall Street|2014|Golden Globe|Best Actor – Motion Picture, Musical or Comedy
+Emma Stone|La La Land|2017|Academy Award|Best Actress
+Emma Stone|La La Land|2017|Golden Globe|Best Actress – Motion Picture, Musical or Comedy
+Ryan Gosling|La La Land|2017|Golden Globe|Best Actor – Motion Picture, Musical or Comedy
+Damien Chazelle|La La Land|2017|Academy Award|Best Director
+Linus Sandgren|La La Land|2017|Academy Award|Best Cinematography
+Emma Stone|Poor Things|2024|Academy Award|Best Actress
+Emma Stone|Poor Things|2024|Golden Globe|Best Actress – Motion Picture, Musical or Comedy
+Olivia Colman|The Favourite|2019|Academy Award|Best Actress
+Olivia Colman|The Favourite|2019|Golden Globe|Best Actress – Motion Picture, Musical or Comedy
+Heath Ledger|The Dark Knight|2009|Academy Award|Best Supporting Actor
+Heath Ledger|The Dark Knight|2009|Golden Globe|Best Supporting Actor – Motion Picture
+Russell Crowe|Gladiator|2001|Academy Award|Best Actor
+Joaquin Phoenix|Joker|2020|Academy Award|Best Actor
+Joaquin Phoenix|Joker|2020|Golden Globe|Best Actor – Motion Picture, Drama
+Matthew McConaughey|Dallas Buyers Club|2014|Academy Award|Best Actor
+Matthew McConaughey|Dallas Buyers Club|2014|Golden Globe|Best Actor – Motion Picture, Drama
+Jared Leto|Dallas Buyers Club|2014|Academy Award|Best Supporting Actor
+Jared Leto|Dallas Buyers Club|2014|Golden Globe|Best Supporting Actor – Motion Picture
+Eddie Redmayne|The Theory of Everything|2015|Academy Award|Best Actor
+Eddie Redmayne|The Theory of Everything|2015|Golden Globe|Best Actor – Motion Picture, Drama
+Colin Firth|The King's Speech|2011|Academy Award|Best Actor
+Colin Firth|The King's Speech|2011|Golden Globe|Best Actor – Motion Picture, Drama
+Tom Hooper|The King's Speech|2011|Academy Award|Best Director
+Adrien Brody|The Pianist|2003|Academy Award|Best Actor
+Roman Polanski|The Pianist|2003|Academy Award|Best Director
+Denzel Washington|Training Day|2002|Academy Award|Best Actor
+Jamie Foxx|Ray|2005|Academy Award|Best Actor
+Jamie Foxx|Ray|2005|Golden Globe|Best Actor – Motion Picture, Musical or Comedy
+Philip Seymour Hoffman|Capote|2006|Academy Award|Best Actor
+Philip Seymour Hoffman|Capote|2006|Golden Globe|Best Actor – Motion Picture, Drama
+Daniel Day-Lewis|Lincoln|2013|Academy Award|Best Actor
+Daniel Day-Lewis|Lincoln|2013|Golden Globe|Best Actor – Motion Picture, Drama
+Daniel Day-Lewis|There Will Be Blood|2008|Academy Award|Best Actor
+Daniel Day-Lewis|There Will Be Blood|2008|Golden Globe|Best Actor – Motion Picture, Drama
+Robert Elswit|There Will Be Blood|2008|Academy Award|Best Cinematography
+Anthony Hopkins|The Father|2021|Academy Award|Best Actor
+Viola Davis|Fences|2017|Academy Award|Best Supporting Actress
+Viola Davis|Fences|2017|Golden Globe|Best Supporting Actress – Motion Picture
+Lupita Nyong'o|12 Years a Slave|2014|Academy Award|Best Supporting Actress
+Mahershala Ali|Moonlight|2017|Academy Award|Best Supporting Actor
+Mahershala Ali|Green Book|2019|Academy Award|Best Supporting Actor
+Mahershala Ali|Green Book|2019|Golden Globe|Best Supporting Actor – Motion Picture
+Michelle Yeoh|Everything Everywhere All at Once|2023|Academy Award|Best Actress
+Michelle Yeoh|Everything Everywhere All at Once|2023|Golden Globe|Best Actress – Motion Picture, Musical or Comedy
+Ke Huy Quan|Everything Everywhere All at Once|2023|Academy Award|Best Supporting Actor
+Ke Huy Quan|Everything Everywhere All at Once|2023|Golden Globe|Best Supporting Actor – Motion Picture
+Jamie Lee Curtis|Everything Everywhere All at Once|2023|Academy Award|Best Supporting Actress
+Daniel Kwan|Everything Everywhere All at Once|2023|Academy Award|Best Director
+Daniel Scheinert|Everything Everywhere All at Once|2023|Academy Award|Best Director
+Frances McDormand|Nomadland|2021|Academy Award|Best Actress
+Chloé Zhao|Nomadland|2021|Academy Award|Best Director
+Frances McDormand|Three Billboards Outside Ebbing, Missouri|2018|Academy Award|Best Actress
+Frances McDormand|Three Billboards Outside Ebbing, Missouri|2018|Golden Globe|Best Actress – Motion Picture, Drama
+Sam Rockwell|Three Billboards Outside Ebbing, Missouri|2018|Academy Award|Best Supporting Actor
+Sam Rockwell|Three Billboards Outside Ebbing, Missouri|2018|Golden Globe|Best Supporting Actor – Motion Picture
+Natalie Portman|Black Swan|2011|Academy Award|Best Actress
+Natalie Portman|Black Swan|2011|Golden Globe|Best Actress – Motion Picture, Drama
+Meryl Streep|The Iron Lady|2012|Academy Award|Best Actress
+Meryl Streep|The Iron Lady|2012|Golden Globe|Best Actress – Motion Picture, Drama
+Charlize Theron|Monster|2004|Academy Award|Best Actress
+Charlize Theron|Monster|2004|Golden Globe|Best Actress – Motion Picture, Drama
+Jodie Foster|The Silence of the Lambs|1992|Academy Award|Best Actress
+Anthony Hopkins|The Silence of the Lambs|1992|Academy Award|Best Actor
+Jonathan Demme|The Silence of the Lambs|1992|Academy Award|Best Director
+John G. Avildsen|Rocky|1977|Academy Award|Best Director
+Sylvester Stallone|Creed|2016|Golden Globe|Best Supporting Actor – Motion Picture

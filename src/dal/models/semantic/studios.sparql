@@ -1,0 +1,5 @@
+# Studio film counts
+PREFIX pc: <https://github.com/karanbe17/film-talent-kg/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?studio (COUNT(DISTINCT ?m) AS ?films) WHERE { ?s a pc:Studio; pc:studioName ?studio . OPTIONAL { ?m pc:producedBy ?s } } GROUP BY ?s ?studio ORDER BY DESC(?films)
